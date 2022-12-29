@@ -1,7 +1,7 @@
 package `in`.sniffer.presentation
 
-import `in`.sniffer.MainActivity
 import `in`.sniffer.domain.models.CallDetail
+import android.app.Activity
 import android.provider.CallLog
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,8 +19,8 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 
 @Composable
-fun CallDetails() {
-    val callDetails by remember { mutableStateOf(getCallDetails()) }
+fun CallDetails(activity: Activity) {
+    val callDetails by remember { mutableStateOf(getCallDetails(activity)) }
 
     LazyColumn(
         contentPadding = PaddingValues(32.dp)
@@ -42,8 +42,7 @@ private fun CallDetailsItem(callDetail: CallDetail, modifier: Modifier = Modifie
     }
 }
 
-private fun getCallDetails(): List<CallDetail> {
-    val activity = MainActivity()
+private fun getCallDetails(activity: Activity): List<CallDetail> {
     val callLogList = mutableListOf<CallDetail>()
 
     val callLogs = activity.contentResolver.query(

@@ -1,24 +1,25 @@
 package `in`.sniffer.domain
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Phone
-import androidx.compose.ui.graphics.vector.ImageVector
+import `in`.sniffer.R
+import androidx.annotation.DrawableRes
 
 sealed class BottomNavScreen(
     val title: String,
-    val icon: ImageVector,
+    @DrawableRes val outlinedIcon: Int,
+    @DrawableRes val filledIcon: Int,
     val route: String
 ) {
     object ContactsScreen : BottomNavScreen(
         title = "Contacts",
-        icon = Icons.Default.Person,
+        outlinedIcon = R.drawable.ic_contacts_outlined,
+        filledIcon = R.drawable.ic_contacts_filled,
         route = "CONTACTS"
     )
 
-    object RecentsScreen : BottomNavScreen(
-        title = "Recent",
-        icon = Icons.Default.Phone,
-        route = "RECENTS"
+    object CallsScreen : BottomNavScreen(
+        title = "Calls",
+        outlinedIcon = R.drawable.ic_calls_outlined,
+        filledIcon = R.drawable.ic_calls_filled,
+        route = "CALLS"
     )
 }
