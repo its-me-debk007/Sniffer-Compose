@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -24,6 +25,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             SnifferComposeTheme {
                 val navHostController = rememberNavController()
@@ -55,7 +57,8 @@ class MainActivity : ComponentActivity() {
 //                    }
 
                     Scaffold(
-                        bottomBar = { BottomBar(navController = navHostController) }
+                        bottomBar = { BottomBar(navController = navHostController) },
+                        topBar = {  }
                     ) {
                         BottomNavigation(
                             navHostController = navHostController,
@@ -69,10 +72,15 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
+    private fun SearchBar() {
+
+    }
+
+    @Composable
     private fun BottomBar(navController: NavHostController) {
         val screens = listOf(
-            BottomNavScreen.ContactsScreen,
-            BottomNavScreen.CallsScreen
+            BottomNavScreen.CallsScreen,
+            BottomNavScreen.ContactsScreen
         )
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
@@ -85,11 +93,7 @@ class MainActivity : ComponentActivity() {
 
                 NavigationBarItem(
                     label = {
-//                        AnimatedVisibility(
-//                            visible = selected,
-//                        ) {
                         Text(text = screen.title)
-//                        }
                     },
                     icon = {
                         Icon(

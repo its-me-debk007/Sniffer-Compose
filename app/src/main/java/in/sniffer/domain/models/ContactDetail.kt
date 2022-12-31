@@ -2,8 +2,8 @@ package `in`.sniffer.domain.models
 
 import android.graphics.Bitmap
 
-data class Contact(
+data class ContactDetail(
     val name: String,
-    val number: List<String>,
+    val numbers: List<String>,
     val image: Bitmap? = null
 )
